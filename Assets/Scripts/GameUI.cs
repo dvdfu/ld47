@@ -5,15 +5,13 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour {
     [SerializeField] GameData gameData = null;
-    [SerializeField] Text scoreUI = null;
-    [SerializeField] Glyph trendingGlyph = null;
+    [SerializeField] RectTransform happinessFill = null;
 
-    float followerCount;
+    void Start() {
+        gameData.Reset();
+    }
 
     void LateUpdate() {
-        int realFollowers = 1 + Mathf.CeilToInt(Mathf.Pow(gameData.score, 2) / 3);
-        followerCount = Mathf.Lerp(followerCount, realFollowers, 0.03f);
-        scoreUI.text = Mathf.CeilToInt(followerCount).ToString() + " Followers";
-        trendingGlyph.SetGlyph(gameData.trending);
+        happinessFill.sizeDelta = new Vector2(gameData.happiness.GetProgress() * 800, 40);
     }
 }
