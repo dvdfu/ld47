@@ -1,0 +1,32 @@
+fileFormatVersion: 2
+guid: 4f45cec6169fd49ec82a8424ab8c2354
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - image: {instanceID: 0}
+  - glyph0: {fileID: 6447540120601613325, guid: e234e6db76e724599b939ea2ac3a9b99,
+      type: 3}
+  - glyph1: {fileID: 8716575568958686377, guid: e234e6db76e724599b939ea2ac3a9b99,
+      type: 3}
+  - glyph2: {fileID: 7450197816634590829, guid: e234e6db76e724599b939ea2ac3a9b99,
+      type: 3}
+  - glyph3: {fileID: -1570737009272924591, guid: e234e6db76e724599b939ea2ac3a9b99,
+      type: 3}
+  - glyph4: {fileID: -6114708475316633336, guid: e234e6db76e724599b939ea2ac3a9b99,
+      type: 3}
+  - glyph5: {fileID: 5157719036662675071, guid: e234e6db76e724599b939ea2ac3a9b99,
+      type: 3}
+  - glyph6: {fileID: 1015975495837252183, guid: e234e6db76e724599b939ea2ac3a9b99,
+      type: 3}
+  - glyph7: {fileID: -2152233135156938295, guid: e234e6db76e724599b939ea2ac3a9b99,
+      type: 3}
+  - glyph8: {fileID: 3280752279412275729, guid: e234e6db76e724599b939ea2ac3a9b99,
+      type: 3}
+  - glyph9: {fileID: 4883909810750232001, guid: e234e6db76e724599b939ea2ac3a9b99,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
