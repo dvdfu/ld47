@@ -25,7 +25,7 @@ public class Post : MonoBehaviour {
     public void GenerateTrending(char c) {
         int length = Random.Range(4, 8);
         content = "";
-        likes = Random.Range(1000, 9999);
+        likes = Random.Range(10000, 99999);
         verified.enabled = true;
         for (int i = 0; i < length; i++) {
             content += c;

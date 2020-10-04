@@ -37,10 +37,10 @@ public class GameManager : MonoBehaviour {
         while (true) {
             NewTrendingPost();
             yield return new WaitForSeconds(2);
-            int posts = Random.Range(4, 12);
+            int posts = Random.Range(8, 20);
             for (int i = 0; i < posts; i++) {
                 NewPost();
-                yield return new WaitForSeconds(0.9f);
+                yield return new WaitForSeconds(Mathf.Lerp(1.6f, 0.8f, gameData.score / 25f));
             }
             yield return new WaitForSeconds(1);
         }

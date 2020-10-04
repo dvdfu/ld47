@@ -11,7 +11,7 @@ public class GameUI : MonoBehaviour {
     float followerCount;
 
     void LateUpdate() {
-        int realFollowers = 1 + Mathf.CeilToInt(Mathf.Pow(gameData.score, 3) / 4);
+        int realFollowers = 1 + Mathf.CeilToInt(Mathf.Pow(gameData.score, 2) / 3);
         followerCount = Mathf.Lerp(followerCount, realFollowers, 0.03f);
         scoreUI.text = Mathf.CeilToInt(followerCount).ToString() + " Followers";
         trendingGlyph.SetGlyph(gameData.trending);
