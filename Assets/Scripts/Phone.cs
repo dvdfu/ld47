@@ -38,7 +38,9 @@ public class Phone : MonoBehaviour {
     }
 
     public void CompleteTask() {
-        countdown.Reset(timeLimit);
+        if (!onFire) {
+            countdown.Reset(timeLimit);
+        }
         depleting = false;
         gameData.CompleteTask();
     }

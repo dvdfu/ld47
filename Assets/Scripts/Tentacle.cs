@@ -12,6 +12,7 @@ public class Tentacle : MonoBehaviour {
     
     void Update() {
         position = Vector3.Lerp(position, Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.2f);
+        position.y = Mathf.Min(position.y, 100);
         transform.position = position + new Vector3(250, -174);
         image.sprite = Input.GetMouseButton(0) ? pressSprite : hoverSprite;
     }

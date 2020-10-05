@@ -15,7 +15,7 @@ public class GameData : ScriptableObject {
     public void Reset() {
         happiness = new Countdown(100);
         happiness.Elapse(75);
-        score = 0;
+        score = 100;
         onFire = false;
     }
 

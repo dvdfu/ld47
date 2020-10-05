@@ -34,7 +34,7 @@ public class GameUI : MonoBehaviour {
     void LateUpdate() {
         float hp = gameData.happiness.GetProgress();
         float width = Mathf.Lerp(happinessFill.sizeDelta.x, hp * 400, 0.1f);
-        happinessFill.sizeDelta = new Vector2(width, 50);
+        happinessFill.sizeDelta = new Vector2(width, 40);
 
         if (shock.IsStopped()) {
             int i = Mathf.FloorToInt(hp * moodSprites.Length);
