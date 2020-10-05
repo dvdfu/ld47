@@ -5,9 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameData", menuName = "Data/GameData")]
 public class GameData : ScriptableObject {
     public Countdown happiness;
+    public int score;
 
     public void Reset() {
         happiness = new Countdown(100);
         happiness.Elapse(50);
+        score = 0;
     }
 }
