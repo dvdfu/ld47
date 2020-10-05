@@ -11,23 +11,25 @@ public class GameData : ScriptableObject {
     public int score;
     public int postsLeft;
     public bool onFire;
+    public bool ending;
 
     public void Reset() {
         happiness = new Countdown(100);
         happiness.Elapse(75);
-        score = 100;
+        score = 0;
         onFire = false;
+        ending = false;
     }
 
     public void CompleteTask() {
-        if (happiness.GetProgress() > 0.1f) {
+        if (!happiness.IsStopped()) {
             score++;
         }
-        happiness.Elapse(-5);
+        happiness.Elapse(-1);
     }
 
     public void FailTask() {
-        happiness.Elapse(20);
+        happiness.Elapse(15);
         failTaskEvent.Invoke();
     }
 }

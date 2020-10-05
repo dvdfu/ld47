@@ -11,6 +11,7 @@ public class Post : MonoBehaviour {
     [SerializeField] Text comment = null;
     [SerializeField] Sprite[] profileSprites = null;
     [SerializeField] Color mintColor = Color.white;
+    [SerializeField] AudioClip tapSound = null;
 
     bool isLiked;
 
@@ -19,6 +20,7 @@ public class Post : MonoBehaviour {
             isLiked = true;
             heart.color = mintColor;
             gameData.postsLeft--;
+            SoundManager.instance.Play(tapSound);
         }
     }
 

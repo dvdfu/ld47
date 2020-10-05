@@ -29,23 +29,28 @@ public class Phone : MonoBehaviour {
     }
 
     public void FailTask() {
+        if (onFire) {
+            return;
+        }
         countdown.Finish();
         depleting = false;
-        if (!onFire) {
-            StartCoroutine(ShowInstructionsRoutine());
-        }
+        StartCoroutine(ShowInstructionsRoutine());
         gameData.FailTask();
     }
 
     public void CompleteTask() {
-        if (!onFire) {
-            countdown.Reset(timeLimit);
+        if (onFire) {
+            return;
         }
+        countdown.Reset(timeLimit);
         depleting = false;
         gameData.CompleteTask();
     }
 
     public void ResetCountdown(bool depleting = true) {
+        if (onFire) {
+            return;
+        }
         this.depleting = depleting;
         countdown.Reset(timeLimit);
     }
@@ -59,20 +64,21 @@ public class Phone : MonoBehaviour {
     }
 
     void Update() {
-        if (depleting) {
+        if (depleting && !onFire) {
             countdown.Elapse(Time.deltaTime);
             if (countdown.IsStopped()) {
-                countdown.Reset(timeLimit);
                 timeoutEvent.Invoke();
             }
         }
     }
 
     void LateUpdate() {
-        if (countdown.IsStopped() || onFire) {
+        if (countdown.IsStopped()) {
             float t = Mathf.Sin(Time.time * Mathf.PI * 4) / 2 + 0.5f;
             timerBar.color = Color.Lerp(Color.red, Color.black, t);
-            gameData.happiness.Elapse(Time.deltaTime * 2);
+            if (!gameData.ending) {
+                gameData.happiness.Elapse(Time.deltaTime * 2);
+            }
         } else {
             timerBar.color = Color.black;
         }
@@ -82,7 +88,7 @@ public class Phone : MonoBehaviour {
     IEnumerator ShowInstructionsRoutine() {
         instructions.color = Color.white;
         yield return new WaitForSeconds(6);
-        while (countdown.IsStopped()) {
+        while (countdown.IsStopped() || onFire) {
             yield return null;
         }
         Color clear = new Color(1, 1, 1, 0);
@@ -92,7 +98,9 @@ public class Phone : MonoBehaviour {
     }
 
     IEnumerator BurnRoutine() {
-        FailTask();
+        countdown.Finish();
+        depleting = false;
+        gameData.FailTask();
         smoke.Play();
         SoundManager.instance.Play(igniteSound);
         yield return new WaitForSeconds(5);

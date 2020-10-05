@@ -357,6 +357,7 @@ MonoBehaviour:
   - {fileID: -1538309785370277938, guid: 8ad84c2f3903c4be4ae0faa6ae3e44b0, type: 3}
   - {fileID: 455747187535858066, guid: 8ad84c2f3903c4be4ae0faa6ae3e44b0, type: 3}
   mintColor: {r: 0.24313727, g: 0.7490196, b: 0.65882355, a: 1}
+  tapSound: {fileID: 8300000, guid: 507cf078d058146a1940d533d41c2058, type: 3}
 --- !u!114 &1017201994993948349
 MonoBehaviour:
   m_ObjectHideFlags: 0

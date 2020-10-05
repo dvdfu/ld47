@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     const float TASK_HEIGHT = -50;
 
     [SerializeField] GameData gameData = null;
+    [SerializeField] RectTransform hud = null;
     [SerializeField] RectTransform taskText = null;
     [SerializeField] RectTransform taskFeed = null;
     [SerializeField] RectTransform taskPhoto = null;
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour {
     }
 
     IEnumerator StartRoutine() {
+        hud.anchoredPosition = Vector2.up * 200;
         blackOverlay.enabled = false;
         titleScreen.SetActive(true);
         while (!Input.GetMouseButton(0)) {
@@ -60,6 +62,9 @@ public class GameManager : MonoBehaviour {
         yield return FadeBlackInRoutine();
         titleScreen.SetActive(false);
         yield return FadeTextRoutine("I like staying connected.\nIt keeps me happy.", 3);
+        yield return Tween.StartRoutine(0.3f, (float progress) => {
+            hud.anchoredPosition = Vector2.up * Mathf.Lerp(200, 0, Easing.CubicIn(progress));
+        });
         yield return FadeBlackOutRoutine();
         blackOverlay.enabled = false;
         StartCoroutine(ProgressRoutine());
@@ -130,10 +135,12 @@ public class GameManager : MonoBehaviour {
         taskText.GetComponent<Phone>().Burn();
 
         yield return new WaitForSeconds(8);
+        gameData.ending = true;
+        gameData.happiness.Finish();
         yield return FadeBlackInRoutine();
         endingImage.enabled = true;
         endingImage.sprite = endingSprites[0];
-        yield return FadeTextRoutine("This isn't working out...", 2);
+        yield return FadeTextRoutine("This is too much for me...", 2);
         yield return FadeBlackOutRoutine();
         yield return new WaitForSeconds(4);
 
@@ -141,17 +148,19 @@ public class GameManager : MonoBehaviour {
         endingImage.sprite = endingSprites[1];
         yield return FadeTextRoutine("I need a change of pace.", 2);
         yield return FadeBlackOutRoutine();
-        yield return FadeTextRoutine("(Later...)", 3);
-        yield return new WaitForSeconds(1);
+        gameData.happiness.Elapse(-30);
+        yield return new WaitForSeconds(4);
 
         yield return FadeBlackInRoutine();
         endingImage.sprite = endingSprites[2];
         yield return FadeBlackOutRoutine();
+        gameData.happiness.Elapse(-30);
         yield return new WaitForSeconds(4);
 
         yield return FadeBlackInRoutine();
         endingImage.sprite = endingSprites[3];
         yield return FadeBlackOutRoutine();
+        gameData.happiness.Elapse(-40);
         yield return new WaitForSeconds(4);
 
         yield return FadeBlackInRoutine();
