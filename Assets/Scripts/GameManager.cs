@@ -119,11 +119,11 @@ public class GameManager : MonoBehaviour {
 
         gameData.onFire = true;
         taskPhoto.GetComponent<Phone>().Burn();
-        yield return new WaitForSeconds(Random.Range(1, 3));
+        yield return new WaitForSeconds(1 + Random.value * 3);
         taskFeed.GetComponent<Phone>().Burn();
-        yield return new WaitForSeconds(Random.Range(1, 3));
+        yield return new WaitForSeconds(1 + Random.value * 3);
         taskCall.GetComponent<Phone>().Burn();
-        yield return new WaitForSeconds(Random.Range(1, 3));
+        yield return new WaitForSeconds(1 + Random.value * 3);
         taskText.GetComponent<Phone>().Burn();
     }
 }

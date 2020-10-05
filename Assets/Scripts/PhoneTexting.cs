@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PhoneTexting : MonoBehaviour {
+    [SerializeField] GameData gameData = null;
     [SerializeField] Phone phone = null;
     [SerializeField] RectTransform conversation = null;
     [SerializeField] Text typingMessageUI = null;
@@ -51,6 +52,9 @@ public class PhoneTexting : MonoBehaviour {
     }
 
     void ReceiveMessage(string message) {
+        if (gameData.onFire) {
+            return;
+        }
         Instantiate(friendMessagePrefab, conversation.transform).GetComponent<Message>().Init(message);
         phone.ResetCountdown();
         canType = true;

@@ -31,7 +31,9 @@ public class Phone : MonoBehaviour {
     public void FailTask() {
         countdown.Finish();
         depleting = false;
-        StartCoroutine(ShowInstructionsRoutine());
+        if (!onFire) {
+            StartCoroutine(ShowInstructionsRoutine());
+        }
         gameData.FailTask();
     }
 
@@ -65,10 +67,10 @@ public class Phone : MonoBehaviour {
     }
 
     void LateUpdate() {
-        if (countdown.IsStopped()) {
+        if (countdown.IsStopped() || onFire) {
             float t = Mathf.Sin(Time.time * Mathf.PI * 4) / 2 + 0.5f;
             timerBar.color = Color.Lerp(Color.red, Color.black, t);
-            gameData.happiness.Elapse(Time.deltaTime * 4);
+            gameData.happiness.Elapse(Time.deltaTime * 2);
         } else {
             timerBar.color = Color.black;
         }
@@ -78,6 +80,9 @@ public class Phone : MonoBehaviour {
     IEnumerator ShowInstructionsRoutine() {
         instructions.color = Color.white;
         yield return new WaitForSeconds(6);
+        while (countdown.IsStopped()) {
+            yield return null;
+        }
         Color clear = new Color(1, 1, 1, 0);
         yield return Tween.StartRoutine(0.5f, (float progress) => {
             instructions.color = Color.Lerp(Color.white, clear, Easing.CubicOut(progress));
@@ -85,6 +90,7 @@ public class Phone : MonoBehaviour {
     }
 
     IEnumerator BurnRoutine() {
+        FailTask();
         smoke.Play();
         SoundManager.instance.Play(igniteSound);
         yield return new WaitForSeconds(5);

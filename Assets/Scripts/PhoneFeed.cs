@@ -42,7 +42,7 @@ public class PhoneFeed : MonoBehaviour {
             refresh.sizeDelta = new Vector2(refreshSize.x, height);
         });
         phone.ResetCountdown();
-        int count = Random.Range(1, 5);
+        int count = Random.Range(3, 6);
         gameData.postsLeft = count;
         for (int i = 0; i < count; i++) {
             Instantiate(postPrefab, feed).transform.SetSiblingIndex(0);

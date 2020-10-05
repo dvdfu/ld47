@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PhoneCalling : MonoBehaviour {
+    [SerializeField] GameData gameData = null;
     [SerializeField] Phone phone = null;
     [SerializeField] Image profilePicture = null;
     [SerializeField] Image callPicture = null;
@@ -82,6 +83,9 @@ public class PhoneCalling : MonoBehaviour {
     IEnumerator MainRoutine() {
         while (true) {
             yield return new WaitForSeconds(Random.Range(7, 10));
+            if (gameData.onFire) {
+                yield break;
+            }
             ReceiveCall();
             while (incomingCallScreen.activeInHierarchy) {
                 yield return null;
