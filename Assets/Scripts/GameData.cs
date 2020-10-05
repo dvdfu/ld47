@@ -10,15 +10,18 @@ public class GameData : ScriptableObject {
     public Countdown happiness;
     public int score;
     public int postsLeft;
+    public bool onFire;
 
     public void Reset() {
         happiness = new Countdown(100);
-        happiness.Elapse(50);
+        happiness.Elapse(75);
         score = 0;
     }
 
     public void CompleteTask() {
-        score++;
+        if (happiness.GetProgress() > 0.2f) {
+            score++;
+        }
         happiness.Elapse(-5);
     }
 

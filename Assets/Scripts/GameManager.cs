@@ -10,12 +10,15 @@ public class GameManager : MonoBehaviour {
     [SerializeField] RectTransform taskPhoto = null;
     [SerializeField] RectTransform taskCall = null;
     [SerializeField] Image redOverlay = null;
+    [SerializeField] Image blackOverlay = null;
+    [SerializeField] Text screenText = null;
     [SerializeField] AudioClip wrongSound = null;
     [SerializeField] CameraHelper cameraHelper = null;
 
     Tween tween;
 
     void Awake() {
+        Application.targetFrameRate = 60;
         tween = new Tween(this);
         gameData.failTaskEvent.AddListener(OnFailTask);
         taskText.gameObject.SetActive(false);
@@ -25,7 +28,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
-        StartCoroutine(ProgressRoutine());
+        StartCoroutine(StartRoutine());
     }
 
     void OnDestroy() {
@@ -42,7 +45,21 @@ public class GameManager : MonoBehaviour {
     }
 
     IEnumerator StartRoutine() {
-        yield return null;
+        blackOverlay.enabled = true;
+        Color clearWhite = new Color(1, 1, 1, 0);
+        Color clearBlack = new Color(0, 0, 0, 0);
+        yield return Tween.StartRoutine(0.5f, (float progress) => {
+            screenText.color = Color.Lerp(clearWhite, Color.white, progress);
+        });
+        yield return new WaitForSeconds(3);
+        yield return Tween.StartRoutine(0.5f, (float progress) => {
+            screenText.color = Color.Lerp(Color.white, clearWhite, progress);
+        });
+        yield return Tween.StartRoutine(1, (float progress) => {
+            blackOverlay.color = Color.Lerp(Color.black, clearBlack, progress);
+        });
+        blackOverlay.enabled = false;
+        StartCoroutine(ProgressRoutine());
     }
 
     IEnumerator ProgressRoutine() {
@@ -99,5 +116,14 @@ public class GameManager : MonoBehaviour {
         while (gameData.score < 60) {
             yield return null;
         }
+
+        gameData.onFire = true;
+        taskPhoto.GetComponent<Phone>().Burn();
+        yield return new WaitForSeconds(Random.Range(1, 3));
+        taskFeed.GetComponent<Phone>().Burn();
+        yield return new WaitForSeconds(Random.Range(1, 3));
+        taskCall.GetComponent<Phone>().Burn();
+        yield return new WaitForSeconds(Random.Range(1, 3));
+        taskText.GetComponent<Phone>().Burn();
     }
 }

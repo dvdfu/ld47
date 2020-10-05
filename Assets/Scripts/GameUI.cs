@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameUI : MonoBehaviour {
     [SerializeField] GameData gameData = null;
     [SerializeField] RectTransform happinessFill = null;
+    [SerializeField] Text happinessText = null;
     [SerializeField] Image mood = null;
     [SerializeField] Sprite[] moodSprites = null;
 
@@ -20,5 +21,6 @@ public class GameUI : MonoBehaviour {
         int i = Mathf.FloorToInt(hp * moodSprites.Length);
         i = Mathf.Clamp(i, 0, moodSprites.Length - 1);
         mood.sprite = moodSprites[i];
+        happinessText.text = "Happiness " + Mathf.FloorToInt(hp * 100).ToString();
     }
 }

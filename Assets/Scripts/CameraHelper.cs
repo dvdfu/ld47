@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CameraHelper : MonoBehaviour {
-    [SerializeField] GameData gameData = null;
     [SerializeField] new Camera camera = null;
 
     Tween tween;

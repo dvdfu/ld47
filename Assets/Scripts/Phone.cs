@@ -11,10 +11,22 @@ public class Phone : MonoBehaviour {
     [SerializeField] RectTransform timerFill = null;
     [SerializeField] Image timerBar = null;
     [SerializeField] Text instructions = null;
+    [SerializeField] ParticleSystem smoke = null;
+    [SerializeField] GameObject crackedScreen = null;
     [SerializeField] float timeLimit = 10;
+    [SerializeField] AudioClip igniteSound = null;
+    [SerializeField] AudioClip glassSound = null;
 
     Countdown countdown;
     bool depleting;
+    bool onFire;
+
+    public void Burn() {
+        if (!onFire) {
+            onFire = true;
+            StartCoroutine(BurnRoutine());
+        }
+    }
 
     public void FailTask() {
         countdown.Finish();
@@ -66,8 +78,18 @@ public class Phone : MonoBehaviour {
     IEnumerator ShowInstructionsRoutine() {
         instructions.color = Color.white;
         yield return new WaitForSeconds(6);
+        Color clear = new Color(1, 1, 1, 0);
         yield return Tween.StartRoutine(0.5f, (float progress) => {
-            instructions.color = Color.Lerp(Color.white, Color.clear, Easing.CubicOut(progress));
+            instructions.color = Color.Lerp(Color.white, clear, Easing.CubicOut(progress));
         });
+    }
+
+    IEnumerator BurnRoutine() {
+        smoke.Play();
+        SoundManager.instance.Play(igniteSound);
+        yield return new WaitForSeconds(5);
+        smoke.Stop();
+        crackedScreen.SetActive(true);
+        SoundManager.instance.Play(glassSound);
     }
 }

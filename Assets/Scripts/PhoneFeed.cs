@@ -57,7 +57,7 @@ public class PhoneFeed : MonoBehaviour {
             yield return null;
         }
         isRefreshing = false;
-        refreshText.text = "Refresh";
+        refreshText.text = "See More";
         refresh.GetComponent<Button>().interactable = true;
         yield return Tween.StartRoutine(0.2f, (float progress) => {
             float height = Mathf.Lerp(0, 30, Easing.CubicIn(progress));
