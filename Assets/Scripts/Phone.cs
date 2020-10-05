@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Phone : MonoBehaviour {
-    public UnityEvent failTaskEvent = new UnityEvent();
+    public UnityEvent timeoutEvent = new UnityEvent();
 
     [SerializeField] RectTransform timerFill = null;
     [SerializeField] float timeLimit = 10;
@@ -20,6 +20,7 @@ public class Phone : MonoBehaviour {
 
     public void StartDepleting() {
         depleting = true;
+        countdown.Reset(timeLimit);
     }
 
     void Awake() {
@@ -30,13 +31,12 @@ public class Phone : MonoBehaviour {
         if (depleting) {
             countdown.Elapse(Time.deltaTime);
             if (countdown.IsStopped()) {
-                failTaskEvent.Invoke();
-                depleting = false;
+                timeoutEvent.Invoke();
             }
         }
     }
 
     void LateUpdate() {
-        timerFill.sizeDelta = new Vector2(countdown.GetProgress() * 150, 10);
+        timerFill.sizeDelta = new Vector2(countdown.GetProgress() * 150, 20);
     }
 }

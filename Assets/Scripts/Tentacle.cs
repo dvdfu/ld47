@@ -14,11 +14,8 @@ public class Tentacle : MonoBehaviour {
     void Update() {
         if (Input.GetMouseButtonDown(0)) {
             // SoundManager.instance.Play(pressSound);
-            position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
-        if (!Input.GetMouseButton(0)) {
-            position = Vector3.Lerp(position, Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.1f);
-        }
+        position = Vector3.Lerp(position, Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.1f);
         transform.position = position + new Vector3(180, -90);
         image.sprite = Input.GetMouseButton(0) ? pressSprite : hoverSprite;
     }

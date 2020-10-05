@@ -31,13 +31,8 @@ public class PhoneTexting : MonoBehaviour {
         }
     }
 
-    public void OnFailTask() {
+    public void OnTimeout() {
         ReceiveMessage("hello??");
-    }
-
-    void Awake() {
-        typingMessage = "pogchamp";
-        clicks = 0;
     }
 
     void Start() {
@@ -58,13 +53,28 @@ public class PhoneTexting : MonoBehaviour {
         Instantiate(friendMessagePrefab, conversation.transform).GetComponent<Message>().Init(message);
         phone.StartDepleting();
         canType = true;
+        typingMessage = GetRandomMessage();
         SoundManager.instance.Play(receiveSound);
+    }
+
+    string GetRandomMessage() {
+        switch (Random.Range(0, 8)) {
+            case 0: return "oh!!";
+            case 1: return "lol";
+            case 2: return "ofc";
+            case 3: return "let's hang";
+            case 4: return "oh rly";
+            case 5: return "u know it";
+            case 6: return "perfect";
+            case 7: return "okay!";
+        }
+        return "huh";
     }
 
     IEnumerator SendMessageRoutine() {
         canType = false;
         Instantiate(yourMessagePrefab, conversation.transform).GetComponent<Message>().Init(typingMessage);
-        yield return new WaitForSeconds(2);
-        ReceiveMessage("what");
+        yield return new WaitForSeconds(Random.Range(3, 5));
+        ReceiveMessage(GetRandomMessage());
     }
 }

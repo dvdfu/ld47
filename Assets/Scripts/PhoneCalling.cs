@@ -6,24 +6,39 @@ using UnityEngine.UI;
 public class PhoneCalling : MonoBehaviour {
     [SerializeField] Phone phone = null;
     [SerializeField] Image profilePicture = null;
+    [SerializeField] Image callPicture = null;
     [SerializeField] Text callerName = null;
     [SerializeField] GameObject incomingCallScreen = null;
     [SerializeField] GameObject callingScreen = null;
+    [SerializeField] Sprite[] profileSprites = null;
+    [SerializeField] Sprite spamSprite = null;
+    [SerializeField] AudioSource ringSource = null;
     [SerializeField] AudioClip chatterSound = null;
+    [SerializeField] AudioClip spamSound = null;
     [SerializeField] AudioClip hangupSound = null;
 
     bool isSpam;
     bool isCalling;
     
     public void OnPickup() {
-        phone.CompleteTask();
+        if (!isSpam) {
+            phone.CompleteTask();
+        }
+        ringSource.Stop();
         isCalling = true;
         incomingCallScreen.SetActive(false);
     }
 
     public void OnHangup() {
-        phone.CompleteTask();
+        if (isSpam) {
+            phone.CompleteTask();
+        }
+        ringSource.Stop();
         incomingCallScreen.SetActive(false);
+    }
+
+    public void OnTimeout() {
+        OnHangup();
     }
 
     void Start() {
@@ -31,18 +46,51 @@ public class PhoneCalling : MonoBehaviour {
         StartCoroutine(MainRoutine());
     }
 
+    void ReceiveCall() {
+        incomingCallScreen.SetActive(true);
+        isSpam = Random.value < 0.3f;
+        if (isSpam) {
+            profilePicture.sprite = spamSprite;
+            callPicture.sprite = spamSprite;
+            callerName.text = "Spam!!";
+        } else {
+            int i = Random.Range(0, profileSprites.Length);
+            profilePicture.sprite = profileSprites[i];
+            callPicture.sprite = profileSprites[i];
+            callerName.text = GetCallerName(i);
+        }
+        phone.StartDepleting();
+        ringSource.Play();
+    }
+
+    string GetCallerName(int i) {
+        switch (i) {
+            case 0: return "Boop";
+            case 1: return "Crabb";
+            case 2: return "Isa";
+            case 3: return "Zerg";
+            case 4: return "Blurp";
+            case 5: return "Chungy";
+            case 6: return "Moo";
+            case 7: return "Peep";
+            default: return "SDF";
+        }
+    }
+
     IEnumerator MainRoutine() {
         while (true) {
-            yield return new WaitForSeconds(Random.Range(3, 5));
-            incomingCallScreen.SetActive(true);
-            isSpam = Random.value < 0.5f;
-            phone.StartDepleting();
+            yield return new WaitForSeconds(Random.Range(8, 10));
+            ReceiveCall();
             while (incomingCallScreen.activeInHierarchy) {
                 yield return null;
             }
             if (isCalling) {
                 callingScreen.SetActive(true);
-                SoundManager.instance.Play(chatterSound);
+                if (isSpam) {
+                    SoundManager.instance.Play(spamSound);
+                } else {
+                    SoundManager.instance.Play(chatterSound);
+                }
                 yield return new WaitForSeconds(2.5f);
                 isCalling = false;
                 callingScreen.SetActive(false);
