@@ -34,8 +34,8 @@ public class PhonePhoto : MonoBehaviour {
         knob1.color = value1 == correctValue1 ? Color.white : mintColor;
         knob2.color = value2 == correctValue2 ? Color.white : mintColor;
 
-        photo.GetComponent<RectTransform>().eulerAngles = Vector3.forward * (value1 - correctValue1) * 5;
-        photo.color = Color.Lerp(Color.white, Color.black, Mathf.Abs(value2 - correctValue2) / 15f);
+        photo.GetComponent<RectTransform>().eulerAngles = Vector3.forward * (value1 - correctValue1) * 10;
+        photo.color = Color.Lerp(Color.white, Color.black, Mathf.Abs(value2 - correctValue2) / 10f);
 
         submitButton.interactable = AreValuesCorrect();
     }
@@ -47,8 +47,8 @@ public class PhonePhoto : MonoBehaviour {
     void NewPhoto() {
         photo.sprite = photos[photoNumber % photos.Length];
         photoNumber++;
-        correctValue1 = (value1 + Random.Range(1, 10)) % 10;
-        correctValue2 = (value2 + Random.Range(1, 10)) % 10;
+        correctValue1 = (value1 + Random.Range(1, 6)) % 6;
+        correctValue2 = (value2 + Random.Range(1, 6)) % 6;
         slider1.interactable = true;
         slider2.interactable = true;
         submitButton.interactable = AreValuesCorrect();

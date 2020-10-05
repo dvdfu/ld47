@@ -32,7 +32,7 @@ public class PhoneTexting : MonoBehaviour {
     }
 
     public void OnTimeout() {
-        ReceiveMessage("hello??");
+        ReceiveMessage(GetRandomWaitMessage());
     }
 
     void Start() {
@@ -46,27 +46,43 @@ public class PhoneTexting : MonoBehaviour {
     }
 
     void LateUpdate() {
-        typingMessageUI.text = typingMessage.Substring(0, clicks);
+        typingMessageUI.text = typingMessage.Substring(0, Mathf.Min(clicks, typingMessage.Length));
     }
 
     void ReceiveMessage(string message) {
         Instantiate(friendMessagePrefab, conversation.transform).GetComponent<Message>().Init(message);
         phone.StartDepleting();
         canType = true;
-        typingMessage = GetRandomMessage();
+        typingMessage = GetRandomSendMessage();
         SoundManager.instance.Play(receiveSound);
     }
 
     string GetRandomMessage() {
-        switch (Random.Range(0, 8)) {
-            case 0: return "oh!!";
-            case 1: return "lol";
-            case 2: return "ofc";
-            case 3: return "let's hang";
-            case 4: return "oh rly";
-            case 5: return "u know it";
-            case 6: return "perfect";
-            case 7: return "okay!";
+        switch (Random.Range(0, 4)) {
+            case 0: return "let's hang";
+            case 1: return "what's up";
+            case 2: return "really??";
+            case 3: return "how bout u";
+        }
+        return "huh";
+    }
+
+    string GetRandomSendMessage() {
+        switch (Random.Range(0, 4)) {
+            case 0: return "of course";
+            case 1: return "doing gr8";
+            case 2: return "u know it";
+            case 3: return "hahahahah";
+        }
+        return "huh";
+    }
+
+    string GetRandomWaitMessage() {
+        switch (Random.Range(0, 4)) {
+            case 0: return "hello??";
+            case 1: return "you there?";
+            case 2: return "umm...?";
+            case 3: return "...?";
         }
         return "huh";
     }
