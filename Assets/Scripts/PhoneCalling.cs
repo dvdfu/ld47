@@ -21,8 +21,10 @@ public class PhoneCalling : MonoBehaviour {
     bool isCalling;
     
     public void OnPickup() {
-        if (!isSpam) {
+        if (isSpam) {
             phone.CompleteTask();
+        } else {
+            phone.FailTask();
         }
         ringSource.Stop();
         isCalling = true;
@@ -32,6 +34,8 @@ public class PhoneCalling : MonoBehaviour {
     public void OnHangup() {
         if (isSpam) {
             phone.CompleteTask();
+        } else {
+            phone.FailTask();
         }
         ringSource.Stop();
         incomingCallScreen.SetActive(false);
@@ -48,7 +52,7 @@ public class PhoneCalling : MonoBehaviour {
 
     void ReceiveCall() {
         incomingCallScreen.SetActive(true);
-        isSpam = Random.value < 0.3f;
+        isSpam = Random.value < 0.2f;
         if (isSpam) {
             profilePicture.sprite = spamSprite;
             callPicture.sprite = spamSprite;
@@ -79,7 +83,7 @@ public class PhoneCalling : MonoBehaviour {
 
     IEnumerator MainRoutine() {
         while (true) {
-            yield return new WaitForSeconds(Random.Range(8, 10));
+            yield return new WaitForSeconds(Random.Range(7, 10));
             ReceiveCall();
             while (incomingCallScreen.activeInHierarchy) {
                 yield return null;

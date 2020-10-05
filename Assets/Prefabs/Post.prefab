@@ -342,6 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd3fe80eb2f2465fae50e60e11c9847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: 1130219d7c6b54e23bd2303381b05aa8, type: 2}
   container: {fileID: 3186752664907685773}
   profile: {fileID: 3186752665038210396}
   heart: {fileID: 3186752664397980054}

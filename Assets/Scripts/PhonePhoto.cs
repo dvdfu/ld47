@@ -35,7 +35,7 @@ public class PhonePhoto : MonoBehaviour {
         knob2.color = value2 == correctValue2 ? Color.white : mintColor;
 
         photo.GetComponent<RectTransform>().eulerAngles = Vector3.forward * (value1 - correctValue1) * 10;
-        photo.color = Color.Lerp(Color.white, Color.black, Mathf.Abs(value2 - correctValue2) / 10f);
+        photo.color = Color.Lerp(Color.white, Color.black, Easing.CubicIn(Mathf.Abs(value2 - correctValue2) / 12f));
 
         submitButton.interactable = AreValuesCorrect();
     }

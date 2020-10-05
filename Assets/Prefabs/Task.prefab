@@ -380,6 +380,7 @@ MonoBehaviour:
   timeoutEvent:
     m_PersistentCalls:
       m_Calls: []
+  gameData: {fileID: 0}
   timerFill: {fileID: 4988891652475269544}
   timeLimit: 10
 --- !u!1 &4988891653995442673

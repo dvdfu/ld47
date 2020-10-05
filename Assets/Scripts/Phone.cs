@@ -7,15 +7,23 @@ using UnityEngine.UI;
 public class Phone : MonoBehaviour {
     public UnityEvent timeoutEvent = new UnityEvent();
 
+    [SerializeField] GameData gameData = null;
     [SerializeField] RectTransform timerFill = null;
     [SerializeField] float timeLimit = 10;
 
     Countdown countdown;
     bool depleting;
 
+    public void FailTask() {
+        countdown.Finish();
+        depleting = false;
+        gameData.FailTask();
+    }
+
     public void CompleteTask() {
         countdown.Reset(timeLimit);
         depleting = false;
+        gameData.CompleteTask();
     }
 
     public void StartDepleting() {
@@ -31,6 +39,8 @@ public class Phone : MonoBehaviour {
         if (depleting) {
             countdown.Elapse(Time.deltaTime);
             if (countdown.IsStopped()) {
+                countdown.Reset(timeLimit);
+                gameData.FailTask();
                 timeoutEvent.Invoke();
             }
         }
