@@ -51,9 +51,9 @@ public class GameManager : MonoBehaviour {
             float x = Mathf.Lerp(1000, 0, Easing.CubicIn(progress));
             taskPhoto.anchoredPosition = new Vector2(x, -30);
         });
-        // while (gameData.score < 3) {
-        //     yield return null;
-        // }
+        while (gameData.score < 3) {
+            yield return null;
+        }
 
         taskFeed.gameObject.SetActive(true);
         yield return Tween.StartRoutine(0.5f, (float progress) => {
@@ -63,9 +63,9 @@ public class GameManager : MonoBehaviour {
             x = Mathf.Lerp(0, -150, Easing.CubicIn(progress));
             taskPhoto.anchoredPosition = new Vector2(x, -30);
         });
-        // while (gameData.score < 10) {
-        //     yield return null;
-        // }
+        while (gameData.score < 10) {
+            yield return null;
+        }
 
         taskCall.gameObject.SetActive(true);
         yield return Tween.StartRoutine(0.5f, (float progress) => {

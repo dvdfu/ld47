@@ -52,7 +52,7 @@ public class PhonePhoto : MonoBehaviour {
         slider1.interactable = true;
         slider2.interactable = true;
         submitButton.interactable = AreValuesCorrect();
-        phone.StartDepleting();
+        phone.ResetCountdown();
         Refresh();
     }
 

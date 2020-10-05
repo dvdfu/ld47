@@ -8,6 +8,12 @@ TextureImporter:
   - first:
       213: -3698530600527905844
     second: Tentacle_1
+  - first:
+      213: -8499054988928216788
+    second: Tentacle_0
+  - first:
+      213: 5792079851977270778
+    second: Tentacle_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -134,17 +140,17 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 156
-        height: 297
+        width: 566
+        height: 510
       alignment: 9
-      pivot: {x: 0.06, y: 0.89}
+      pivot: {x: 0.06, y: 0.84}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f4e84d924f2eccf0800000000000000
-      internalID: -230194567796169486
+      spriteID: c211c6a748a4d0a80800000000000000
+      internalID: -8499054988928216788
       vertices: []
       indices: 
       edges: []
@@ -153,19 +159,19 @@ TextureImporter:
       name: Tentacle_1
       rect:
         serializedVersion: 2
-        x: 156
+        x: 566
         y: 0
-        width: 156
-        height: 297
+        width: 566
+        height: 510
       alignment: 9
-      pivot: {x: 0.06, y: 0.89}
+      pivot: {x: 0.06, y: 0.84}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccb3f94b30e2cacc0800000000000000
-      internalID: -3698530600527905844
+      spriteID: af56dc700f9916050800000000000000
+      internalID: 5792079851977270778
       vertices: []
       indices: 
       edges: []

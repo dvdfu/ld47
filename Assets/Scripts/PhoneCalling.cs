@@ -22,9 +22,9 @@ public class PhoneCalling : MonoBehaviour {
     
     public void OnPickup() {
         if (isSpam) {
-            phone.CompleteTask();
-        } else {
             phone.FailTask();
+        } else {
+            phone.CompleteTask();
         }
         ringSource.Stop();
         isCalling = true;
@@ -32,9 +32,7 @@ public class PhoneCalling : MonoBehaviour {
     }
 
     public void OnHangup() {
-        if (isSpam) {
-            phone.CompleteTask();
-        } else {
+        if (!isSpam) {
             phone.FailTask();
         }
         ringSource.Stop();
@@ -52,7 +50,7 @@ public class PhoneCalling : MonoBehaviour {
 
     void ReceiveCall() {
         incomingCallScreen.SetActive(true);
-        isSpam = Random.value < 0.2f;
+        isSpam = Random.value < 0.33f;
         if (isSpam) {
             profilePicture.sprite = spamSprite;
             callPicture.sprite = spamSprite;
@@ -63,7 +61,7 @@ public class PhoneCalling : MonoBehaviour {
             callPicture.sprite = profileSprites[i];
             callerName.text = GetCallerName(i);
         }
-        phone.StartDepleting();
+        phone.ResetCountdown();
         ringSource.Play();
     }
 
@@ -99,6 +97,7 @@ public class PhoneCalling : MonoBehaviour {
                 isCalling = false;
                 callingScreen.SetActive(false);
             }
+            phone.ResetCountdown(false);
             SoundManager.instance.Play(hangupSound);
         }
     }

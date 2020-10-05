@@ -41,7 +41,7 @@ public class PhoneFeed : MonoBehaviour {
             float height = Mathf.Lerp(60, 0, Easing.CubicOut(progress));
             refresh.sizeDelta = new Vector2(refreshSize.x, height);
         });
-        phone.StartDepleting();
+        phone.ResetCountdown();
         int count = Random.Range(1, 5);
         gameData.postsLeft = count;
         for (int i = 0; i < count; i++) {

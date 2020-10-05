@@ -33,6 +33,7 @@ public class PhoneTexting : MonoBehaviour {
 
     public void OnTimeout() {
         ReceiveMessage(GetRandomWaitMessage());
+        phone.FailTask();
     }
 
     void Start() {
@@ -51,7 +52,7 @@ public class PhoneTexting : MonoBehaviour {
 
     void ReceiveMessage(string message) {
         Instantiate(friendMessagePrefab, conversation.transform).GetComponent<Message>().Init(message);
-        phone.StartDepleting();
+        phone.ResetCountdown();
         canType = true;
         typingMessage = GetRandomSendMessage();
         SoundManager.instance.Play(receiveSound);
